@@ -35,10 +35,9 @@ jobs:
             php-version: ${{ matrix.php }}
             extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
             coverage: none
-      
-      - uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql database: 'wordpress_test' # Optional, default value is "test". The specified database which will be createhe "mysql user"
+
+      - name: Start MySQL
+        run: sudo /etc/init.d/mysql start
 
       -   name: Install dependencies
           run: |
