@@ -22,6 +22,6 @@ class PluginTest extends WP_UnitTestCase {
         );
         $post_id = wp_insert_post( $my_post );
 
-		$this->assertTrue( get_the_title( $post_id ), 'My post' );
+		$this->assertInternalType( 'int', $post_id );
 	}
 }
