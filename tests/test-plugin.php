@@ -13,8 +13,15 @@ class PluginTest extends WP_UnitTestCase {
 	/**
 	 * A single example test.
 	 */
-	public function test_true() {
-		// Replace this with some actual testing code.
-		$this->assertTrue( true );
+	public function test_insert_post() {
+        $my_post = array(
+            'post_title'    => 'My post',
+            'post_content'  => 'This is my post.',
+            'post_status'   => 'publish',
+            'post_author'   => 1,
+        );
+        $post_id = wp_insert_post( $my_post );
+
+		$this->assertTrue( get_the_title( $post_id ), 'My Post' );
 	}
 }
