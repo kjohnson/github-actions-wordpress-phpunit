@@ -41,11 +41,11 @@ jobs:
 
       # @link https://github.com/spatie/laravel-activitylog/blob/master/.github/workflows/run-tests.yml
       - name: Setup PHP
-          uses: shivammathur/setup-php@v2
-          with:
-              php-version: ${{ matrix.php }}
-              extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
-              coverage: none
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: ${{ matrix.php }}
+            extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+            coverage: none
       
       -   name: Install dependencies
           run: |
