@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ 8.0, 7.4, 7.3, 7.2 ]
+        php: [ 7.2 ]
 
     services:
         mysql:
@@ -57,3 +57,5 @@ jobs:
 
       -   name: Execute tests
           run: vendor/bin/phpunit
+          env:
+            DB_PORT: ${{ job.services.mysql.ports[3306] }}
