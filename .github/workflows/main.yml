@@ -28,7 +28,29 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Working Directory
+      # @link https://github.com/spatie/laravel-activitylog/blob/master/.github/workflows/run-tests.yml
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: ${{ matrix.php }}
+            extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+            coverage: none
+
+      - name: Start MySQL
+        run: sudo /etc/init.d/mysql start
+
+      -   name: Install dependencies
+          run: |
+              composer install --prefer-dist --no-interaction --no-suggest
+
+      - name: Setup tests
         run: |
-          pwd
-          ls -l
+            bash bin/install-wp-tests.sh wordpress_test root root localhost latest
+
+      - name: Working Directory
+        run: pwd
+
+      -   name: Execute tests
+          run: vendor/bin/phpunit --bootstrap=tests/bootstrap.php tests/
+          env:
+            DB_PORT: ${{ job.services.mysql.ports[3306] }}
