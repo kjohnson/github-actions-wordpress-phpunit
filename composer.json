@@ -1,0 +1,7 @@
+{
+    "name": "kylebjohnson/github-actions-wordpress-phpunit",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "5.*"
+    }
+}
