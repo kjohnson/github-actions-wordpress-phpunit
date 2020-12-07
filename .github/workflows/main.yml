@@ -23,17 +23,6 @@ jobs:
       matrix:
         php: [ 7.2 ]
 
-    services:
-        mysql:
-            image: mysql:5.7
-            env:
-                MYSQL_ALLOW_EMPTY_PASSWORD: yes
-                MYSQL_DATABASE: wordpress_test
-            ports:
-                - 3306
-            options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -47,12 +36,13 @@ jobs:
             extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
             coverage: none
       
+      - uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: 'wordpress_test' # Optional, default value is "test". The specified database which will be createhe "mysql user"
+
       -   name: Install dependencies
           run: |
               composer install --prefer-dist --no-interaction --no-suggest
-
-      - name: Start MySQL
-        run: sudo /etc/init.d/mysql start
 
       - name: Setup tests
         run: |
